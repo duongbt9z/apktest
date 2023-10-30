@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Apktest</string>
+    <string name="db_name">database.sql</string>
+</resources>
