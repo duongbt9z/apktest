@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Toast.makeText(getApplicationContext(), sanPhamArrayList.get(position).getTenSP(), Toast.LENGTH_SHORT).show();
                 Log.d("list", "onItemClick: click");
-                SanPham sp = sanPhamArrayList.get(position);
+                SanPham sp = Sanphamadapter.getSanPhamArrayList().get(position);
                 Bundle data = new Bundle();
                 data.putSerializable("sp_value", sp);
                 Intent showsp = new Intent(MainActivity.this, ShowSanPham.class);

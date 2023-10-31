@@ -13,25 +13,34 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:hint="Thông Tin Chi Tiết" />
+            android:hint="Thông Tin Chi Tiết"
+            android:textColor="#E91E63"
+            android:textSize="20dp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/tvShowName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="tên sản phẩm:" />
+            android:hint="tên sản phẩm:"
+            android:textColor="#492FE7"
+            android:textSize="15sp"/>
 
         <TextView
             android:id="@+id/tvShowMa"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint=" mã sản phẩm:" />
+            android:hint=" mã sản phẩm:"
+            android:textColor="#8B4202"
+            android:textSize="15sp"/>
 
         <TextView
             android:id="@+id/tvShowGiaSP"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint=" giá  sản phẩm:" />
+            android:hint=" giá  sản phẩm:"
+            android:textColor="#00FFFF"
+            android:textSize="15sp"/>
 
 <!--        <ImageView-->
 <!--            android:id="@+id/imgShowLogoSP"-->

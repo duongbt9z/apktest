@@ -46,6 +46,10 @@ public class SanPhamAdapter extends ArrayAdapter<SanPham> {
         return sanPhamArrayList.size();
     }
 
+    public ArrayList<SanPham> getSanPhamArrayList() {
+        return sanPhamArrayList;
+    }
+
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
@@ -93,7 +97,7 @@ public class SanPhamAdapter extends ArrayAdapter<SanPham> {
         btnEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, "onclick edit", Toast.LENGTH_SHORT).show();
+               
                 Bundle data= new Bundle();
                 data.putSerializable("sp_value",sp);
                 Intent editIntent = new Intent(context, EditSanPham.class);
@@ -112,13 +116,26 @@ public class SanPhamAdapter extends ArrayAdapter<SanPham> {
             @Override
             protected FilterResults performFiltering(CharSequence constraint) {
                 FilterResults filterResults = new FilterResults();
+                String query = constraint.toString().trim().toLowerCase();
+                if(query.length()<1){
+                    sanPhamArrayListFilter=sanPhamArrayListBackUp;
 
+                }else {
+                    sanPhamArrayListFilter = new ArrayList<>();
+                    for (SanPham sp:sanPhamArrayListBackUp) {
+                        if(sp.getMaSP().contains(query) || sp.getTenSP().contains(query)){
+                            sanPhamArrayListFilter.add(sp);
+                        }
+                    }
+                }
+                filterResults.values = sanPhamArrayListFilter;
                 return filterResults;
             }
 
             @Override
             protected void publishResults(CharSequence constraint, FilterResults results) {
-
+             sanPhamArrayList  = (ArrayList<SanPham>) results.values;
+             notifyDataSetChanged();
             }
         };
     }
