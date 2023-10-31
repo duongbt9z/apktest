@@ -13,6 +13,9 @@
         android:theme="@style/Theme.Apktest"
         tools:targetApi="31">
         <activity
+            android:name=".Models.ShowSanPham"
+            android:exported="false" />
+        <activity
             android:name=".Models.EditSanPham"
             android:exported="false" />
         <activity

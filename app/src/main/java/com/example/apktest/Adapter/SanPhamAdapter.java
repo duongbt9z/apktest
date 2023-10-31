@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.Filter;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -19,6 +20,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.example.apktest.Database.SQLiteConnect;
+import com.example.apktest.MainActivity;
 import com.example.apktest.Models.EditSanPham;
 import com.example.apktest.SanPham;
 import com.example.apktest.R;
@@ -28,13 +31,14 @@ import java.util.ArrayList;
 public class SanPhamAdapter extends ArrayAdapter<SanPham> {
     Activity context;
     int resource;
-    ArrayList<SanPham> sanPhamArrayList;
+    ArrayList<SanPham> sanPhamArrayList,sanPhamArrayListBackUp, sanPhamArrayListFilter ;
+    SQLiteConnect sqLiteConnect;
 
     public SanPhamAdapter(@NonNull Activity context, int resource, @NonNull ArrayList<SanPham> sanPhamArrayList) {
         super(context, resource);
         this.context = context;
         this.resource = resource;
-        this.sanPhamArrayList = sanPhamArrayList;
+        this.sanPhamArrayList =this.sanPhamArrayListBackUp = sanPhamArrayList;
     }
 
     @Override
@@ -69,12 +73,15 @@ public class SanPhamAdapter extends ArrayAdapter<SanPham> {
                 builder.setNegativeButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        sanPhamArrayList.remove(sp);
-                        notifyDataSetChanged();
+
+                        String query = "DELETE FROM sanpham WHERE Masp = '" + sp.getMaSP() + "' AND Namesp = '" + sp.getTenSP() + "' AND Giasp = '" + sp.getGiaSP() + "'";
+                        sqLiteConnect = new SQLiteConnect(context, context.getString(R.string.db_name), null, 1);
+                        sqLiteConnect.queryData(query);
+                        ((MainActivity) context).LoadDataSanPham();
+//
 
                     }
-                });
-                builder.setPositiveButton("No", new DialogInterface.OnClickListener() {
+                }).setPositiveButton("No", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         dialogInterface.dismiss();
@@ -91,19 +98,28 @@ public class SanPhamAdapter extends ArrayAdapter<SanPham> {
                 data.putSerializable("sp_value",sp);
                 Intent editIntent = new Intent(context, EditSanPham.class);
                 editIntent.putExtras(data);
-//                context.startActivity(editIntent,123);
-//                String Namesp = edtName.getText().toString().trim();
-//                Intent showsp = new Intent(context, ShowSanPham.class);
-//                context.startActivity(showsp);
-//
-//                tvShowMa.setText(sp.getMaSP());
-//                tvShowName.setText(sp.getTenSP());
-//                tvShowGiaSP.setText((int) sp.getGiaSP());
-//                imgShowLogoSP.setImageURI(Uri.parse(sp.getLogoSP()));
+                context.startActivityForResult(editIntent,123);
             }
-
-
         });
         return customView;
+    }
+
+    @NonNull
+    @Override
+    public Filter getFilter() {
+
+        return new Filter() {
+            @Override
+            protected FilterResults performFiltering(CharSequence constraint) {
+                FilterResults filterResults = new FilterResults();
+
+                return filterResults;
+            }
+
+            @Override
+            protected void publishResults(CharSequence constraint, FilterResults results) {
+
+            }
+        };
     }
 }

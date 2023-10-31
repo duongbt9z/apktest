@@ -53,16 +53,6 @@ public class AddSanPham extends AppCompatActivity {
             }
         });
 
-
-        btnAddimg = findViewById(R.id.btnAddimg);
-        btnAddimg.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Log.d("addimg", "onClick: img");
-                Intent intent = new Intent(Intent.ACTION_PICK);
-                intent.setType("image/*");
-            }
-        });
     }
 
     public void addSanPham() {
